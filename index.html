@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aaryan Pokhrel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #020617;
+            --secondary: #0f172a;
+            --accent: #38bdf8;
+            --accent-alt: #818cf8;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass: rgba(30, 41, 59, 0.5);
+            --border: rgba(255, 255, 255, 0.08);
+            --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--primary);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.08) 0%, transparent 40%);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            background: rgba(2, 6, 23, 0.7);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* ===== HAMBURGER MENU ===== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(14px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-14px);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.8rem, 6vw, 3rem);
+                margin-bottom: 1rem;
+                word-break: break-word;
+            }
+
+            .typewriter {
+                font-size: 0.6em;
+                display: inline;
+                word-break: break-word;
+            }
+
+            .hero-quote {
+                font-size: 0.95rem;
+                max-width: 85%;
+                margin: 1.5rem auto;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(2, 6, 23, 0.95);
+                backdrop-filter: blur(15px);
+                border-bottom: 1px solid var(--border);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                list-style: none;
+            }
+
+            .nav-links.active {
+                max-height: 300px;
+            }
+
+            .nav-links li {
+                padding: 0;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                color: var(--text-muted);
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links a:hover {
+                background: rgba(56, 189, 248, 0.1);
+            }
+
+            .navbar {
+                padding: 1rem 2rem;
+            }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 12vw, 7rem);
+            font-weight: 800;
+            letter-spacing: -4px;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .typewriter {
+            font-size: 0.5em;
+            background: linear-gradient(to right, var(--accent), var(--accent-alt));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 2rem auto;
+            letter-spacing: 0.5px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* ===== SHARED LAYOUT ===== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem; }
+        .section-title { font-size: 2.5rem; margin-bottom: 3rem; font-weight: 800; letter-spacing: -1px; }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(56, 189, 248, 0.3);
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: var(--card-shadow);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 0.6fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .name-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes bounce-arrow {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(4px);
+            }
+        }
+
+        .experience-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .stat-small {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        /* ===== CONTACT BENTO GRID ===== */
+        .contact-bento {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .bento-main { grid-column: span 2; grid-row: span 2; }
+        .bento-social { display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 600; }
+        .bento-email { grid-column: span 2; background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid var(--accent); }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .contact-bento { grid-template-columns: repeat(2, 1fr); }
+            .bento-main { grid-column: span 2; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">nexaa<span>69</span></a>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="#about">About</a></li>
+            <li><a href="index.html">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <header class="hero">
+        <div class="reveal active">
+            <span class="name-tag">Scroll ⇳</span>
+            <h1>Aaryan Pokhrel <br><span class="typewriter" id="typewriter"></span></h1>
+            <p class="hero-quote">"Stay Young, Wild & Free"</p>
+        </div>
+    </header>
+
+    <section id="about" class="container">
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <h2 class="section-title">About Me</h2>
+                <p>
+                    I'm a 17-year-old who's really into <b>tech and creativity</b>. I spend most of my time designing graphics, building websites, and editing videos. I like creating things that look good and feel right, whether it's banners, thumbnails, or full website layouts. I've also learned a lot by cloning websites, just to understand how everything works behind the scenes.
+                </p>
+                <p>
+                    I'm passionate about <b>anime edits</b> — it's one of the ways I mix creativity with storytelling and have fun with what I make. Beyond the screen, I'm deeply interested in <b>human rights</b>. I pay attention to what's happening around the world and try to understand different perspectives and issues that affect people.
+                </p>
+                <p>
+                    I'm always trying to learn something new, improve my skills, and create better work every day. Every project is a chance to push myself further and build something meaningful.
+                </p>
+            </div>
+            
+            <div class="experience-box reveal">
+                <div class="stat-small">
+                    <h3 style="color: var(--accent);">100+</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Paid Projects</p>
+                </div>
+                <div class="stat-small">
+                    <h3 style="color: var(--accent-alt);">20+</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Websites Deployed</p>
+                </div>
+                <div class="stat-small">
+                    <h3 style="color: #10b981;">50+</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Designs Delivered</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container">
+        <h2 class="section-title reveal">Contact Links:</h2>
+        <div class="contact-bento">
+            <div class="card bento-main reveal">
+                <h3>Have an idea?</h3>
+                <p style="color: var(--text-muted); margin: 1rem 0 2rem;">I'm currently looking for new opportunities and collaborations. My inbox is always open.</p>
+                <a href="mailto:aaryanpokhrelll@gmail.com" style="color: var(--accent); text-decoration: none; font-weight: 700;">Drop a message →</a>
+            </div>
+
+            <a href="https://instagram.com/nexaaop" class="card bento-social reveal" style="color: #e1306c;">🅾  𝐈𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦</a>
+            <a href="https://github.com/aaryanxxi" class="card bento-social reveal" style="color: var(--text);">GitHub🌐</a>
+            <a href="https://tiktok.com/@aaryan.nexaa69" class="card bento-social reveal" style="color: #ff0050;">♪ 𝗧𝗶𝗸 𝗧𝗼𝗸</a>
+            <a href="tel:+9779767003477" class="card bento-social reveal" style="color: #38bdf8;">🕻 Call</a>
+
+            <div class="card bento-email reveal">
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--accent);">Personal Mail</span>
+                <h4 style="margin-top: 0.5rem; font-size: 1.2rem;">aaryanpokhrelll@gmail.com</h4>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 4rem 2rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border);">
+        <p>© 2026 Aaryan Pokhrel. Built with precision and passion.</p>
+    </footer>
+
+    <script>
+        // Typing Effect
+        const textElement = document.getElementById('typewriter');
+        const words = ['Web-Developer', 'Graphic-Designer', 'Video-Editor', 'HR-Observer'];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) {
+                textElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? 70 : 150);
+            }
+        }
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        navMenu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', type);
+    </script>
+</body>
+</html>
