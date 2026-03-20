@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aaryan Pokhrel</title>
+    <link rel="icon" type="image/png" href="logo.jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -110,24 +111,38 @@
 
             .hero {
                 padding: 0 1rem;
+                padding-top: 2rem;
             }
 
             .hero h1 {
-                font-size: clamp(1.8rem, 6vw, 3rem);
-                margin-bottom: 1rem;
-                word-break: break-word;
+                font-size: clamp(1.8rem, 7vw, 2.8rem);
+                margin-bottom: 1.2rem;
+                word-break: normal;
+                line-height: 1.4;
+                letter-spacing: -1px;
             }
 
             .typewriter {
-                font-size: 0.6em;
-                display: inline;
-                word-break: break-word;
+                font-size: 1em;
+                display: inline-block;
+                margin-left: 0.3rem;
+                background: linear-gradient(to right, var(--accent), var(--accent-alt));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                min-width: 150px;
+                text-align: left;
             }
 
             .hero-quote {
-                font-size: 0.95rem;
-                max-width: 85%;
-                margin: 1.5rem auto;
+                font-size: 0.9rem;
+                max-width: 90%;
+                margin: 1.2rem auto 0;
+            }
+
+            .name-tag {
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+                display: block;
             }
 
             .nav-links {
@@ -185,15 +200,18 @@
             font-size: clamp(3rem, 12vw, 7rem);
             font-weight: 800;
             letter-spacing: -4px;
-            line-height: 0.9;
-            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            margin-bottom: 2rem;
         }
 
         .typewriter {
-            font-size: 0.5em;
+            font-size: 0.65em;
+            display: inline-block;
+            margin-left: 0.5rem;
             background: linear-gradient(to right, var(--accent), var(--accent-alt));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            min-width: 200px;
         }
 
         .hero-quote {
@@ -326,7 +344,7 @@
     <header class="hero">
         <div class="reveal active">
             <span class="name-tag">Scroll ⇳</span>
-            <h1>Aaryan Pokhrel <br><span class="typewriter" id="typewriter"></span></h1>
+            <h1>Aaryan Pokhrel<br><span class="typewriter" id="typewriter"></span></h1>
             <p class="hero-quote">"Stay Young, Wild & Free"</p>
         </div>
     </header>
@@ -391,7 +409,7 @@
     <script>
         // Typing Effect
         const textElement = document.getElementById('typewriter');
-        const words = ['Web-Developer', 'Graphic-Designer', 'Video-Editor', 'HR-Observer'];
+        const words = ['Web-Developer', 'Graphic-Designer', 'Video-Editor'];
         let wordIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
